@@ -1,29 +1,27 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
-const AllocationForm = (props) => {
-    const { dispatch, currency } = useContext(AppContext);
+const ItemSelected = (props) => {
+    const { dispatch } = useContext(AppContext);
 
     const [name, setName] = useState("");
-    const [cost, setcost] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [action, setAction] = useState("");
 
     const submitEvent = () => {
-        if (!name) return alert("Choose a Department");
-        if (!cost) return alert("Choose a cost");
         const item = {
             name: name,
-            cost: parseInt(cost),
+            quantity: parseInt(quantity),
         };
 
         if (action === "Reduce") {
             dispatch({
-                type: "RED_EXPENSE",
+                type: "RED_QUANTITY",
                 payload: item,
             });
         } else {
             dispatch({
-                type: "ADD_EXPENSE",
+                type: "ADD_QUANTITY",
                 payload: item,
             });
         }
@@ -35,32 +33,32 @@ const AllocationForm = (props) => {
                 <div className="input-group mb-3" style={{ marginLeft: "2rem" }}>
                     <div className="input-group-prepend">
                         <label className="input-group-text" htmlFor="inputGroupSelect01">
-                            Department
+                            Items
                         </label>
                     </div>
-                    <select className="custom-select" id="inputGroupSelect01" onChange={(event) => setName(event.target.value)} required>
+                    <select className="custom-select" id="inputGroupSelect01" onChange={(event) => setName(event.target.value)}>
                         <option defaultValue>Choose...</option>
-                        <option value="Marketing" name="Marketing">
+                        <option value="Shirt" name="Shirt">
                             {" "}
-                            Marketing
+                            Shirt
                         </option>
-                        <option value="Finance" name="Finance">
-                            Finance
+                        <option value="Dress" name="Dress">
+                            Dress
                         </option>
-                        <option value="Sales" name="Sales">
-                            Sales
+                        <option value="Jeans" name="Jeans">
+                            Jeans
                         </option>
-                        <option value="Human Resource" name="Human Resource">
-                            Human Resource
+                        <option value="Dinner set" name="Dinner set">
+                            Dinner set
                         </option>
-                        <option value="IT" name="IT">
-                            IT
+                        <option value="Bags" name="Bags">
+                            Bags
                         </option>
                     </select>
 
                     <div className="input-group-prepend" style={{ marginLeft: "2rem" }}>
                         <label className="input-group-text" htmlFor="inputGroupSelect02">
-                            Allocation
+                            Quantity
                         </label>
                     </div>
                     <select className="custom-select" id="inputGroupSelect02" onChange={(event) => setAction(event.target.value)}>
@@ -71,10 +69,9 @@ const AllocationForm = (props) => {
                             Reduce
                         </option>
                     </select>
-                    <span className="eco" style={{ marginLeft: "2rem", marginRight: "8px" }}>
-                        {currency}
-                    </span>
-                    <input required="required" type="number" id="cost" value={cost} style={{ size: 10 }} onChange={(event) => setcost(event.target.value)}></input>
+                    <span className="eco" style={{ marginLeft: "2rem", marginRight: "8px" }}></span>
+
+                    <input required="required" type="number" id="cost" value={quantity} style={{ size: 10 }} onChange={(event) => setQuantity(event.target.value)}></input>
 
                     <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: "2rem" }}>
                         Save
@@ -85,4 +82,4 @@ const AllocationForm = (props) => {
     );
 };
 
-export default AllocationForm;
+export default ItemSelected;
